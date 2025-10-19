@@ -78,9 +78,13 @@ SET new_order_date = STR_TO_DATE(order_date, '%c/%e/%y');
 ```
 ---
 
-### ✅ Step 4: Verify the conversion
-I did a few random checks comparing the old and new columns to make sure the conversion worked correctly.
+
+### ✅ Step 4: Verify the conversion 
+
+I did a few random checks comparing the old and new columns to make sure the conversion worked correctly
+
 ---
+
 
 ### 🧹 Step 5: Drop and rename columns
 
