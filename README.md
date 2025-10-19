@@ -118,4 +118,4 @@ ALTER TABLE order_details
 RENAME COLUMN new_order_time TO order_time;
 ```
 ---
-
+![Clean data](images/order_details_wrong_datatype.png)
