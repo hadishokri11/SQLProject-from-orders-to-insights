@@ -128,46 +128,57 @@ After cleaning the order_details table, I moved on to exploring what’s on the 
 The menu_items table contains all the dishes offered at Taste of the World Café — including their categories, cuisines, and prices.
 
 ```sql
--- 1. View the menu_items table.
+-- 1. View the menu_tem table.
 SELECT * from menu_items;
 
 -- 2. Find the number of items on the menu.
-SELECT COUNT(*) from menu_items;
+SELECT COUNT(*) from menu_items AS num_menu_items;
+-- 32 menu items
 
 -- 3. What are the TOP 3 least and most expensive items on the menu?
 SELECT * from menu_items
 ORDER BY price
 LIMIT 3;
+-- Edamame, Mac & Cheese, French Fries
 
 SELECT * from menu_items
 ORDER BY price DESC
 LIMIT 3;
+-- Shrimp Scampi, Korean Beef Bowl, Pork Ramen
 
 -- 4. How many Italian dishes are on the menu?
-SELECT COUNT(*) from menu_items
+SELECT category, COUNT(*) AS num_item
+FROM menu_items
 WHERE category = "Italian";
+-- 9 dishes
 
 -- 5. What are the TOP 3 least and most expensive Italian dishes on the menu?
+-- least expansive
 SELECT * from menu_items
 WHERE category = "Italian"
 ORDER BY price
 LIMIT 3;
+-- Spaghetti, Fettuccine Alfredo, Cheese Lasagna
 
+-- most expensive
 SELECT * from menu_items
 WHERE category = "Italian"
 ORDER BY price DESC
 LIMIT 3;
+-- Shrimp Scampi, Spaghetti & Meatballs, Meat Lasagna
 
 -- 6. How many dishes are in each category?
 SELECT category, count(item_name) AS num_dishes
 FROM menu_items
 GROUP BY category;
+-- American: 6, Asian: 8, Mexican: 9,Italian: 9
 
 -- 7. What is the average dish price within each category?
 SELECT category, AVG(price) AS avg_price 
 FROM menu_items
 GROUP BY category
 ORDER BY avg_price;
+-- American: 10.07, Mexican: 11.8, Asian: 13.48, Italian: 16.75
 ```
 💡 These queries give a quick but powerful overview of the restaurant’s new menu — highlighting pricing patterns, cuisine variety, and category-level insights.
 
