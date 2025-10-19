@@ -101,3 +101,21 @@ A reminder that not every dataset comes clean, and sometimes the best learning h
 
 ---
 
+### 🔄 Step 6: Repeat with order_time column
+
+I did the same thing with order_time column:
+```sql
+ALTER TABLE order_details
+ADD COLUMN new_order_time TIME;
+
+UPDATE order_details
+SET new_order_time = str_to_date(order_time, '%h:%i:%s %p');
+
+ALTER TABLE order_details
+DROP COLUMN order_time;
+
+ALTER TABLE order_details
+RENAME COLUMN new_order_time TO order_time;
+```
+---
+
