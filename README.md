@@ -28,7 +28,7 @@ I’ve been asked to dive into the customer order data to answer key questions l
 
 ## 🧩 Tools Used  
 - **SQL** for querying and analysis  
-- **PostgreSQL / MySQL** (I used MySQL Workbench)  
+- **MySQL**
 - **YouTube Project Reference:** *Data Analyst Portfolio Project – Restaurant Order Analysis in SQL (with Solutions)*  
 
 ---
@@ -53,13 +53,47 @@ Here’s how I went about it:
 ---
 
 ### 🔍 Step 1: Explore the data  
+
 ```sql
 SELECT *
 FROM order_details;
+```
+---
 
 ### 🏗️ Step 2: Add a new column
 
 I created a new column called new_order_date with the correct data type:
-```ALTER TABLE order_details
+```sql
+ALTER TABLE order_details
 ADD COLUMN new_order_date DATE;
+```
+---
+
+### 🔄 Step 3: Convert and update the data
+
+Then I filled this column by converting the existing order_date text into a proper date format:
+```sql
+UPDATE order_details
+SET new_order_date = STR_TO_DATE(order_date, '%c/%e/%y');
+```
+---
+
+### ✅ Step 4: Verify the conversion
+I did a few random checks comparing the old and new columns to make sure the conversion worked correctly.
+---
+
+### 🧹 Step 5: Drop and rename columns
+
+Once everything looked good, I replaced the old column with the cleaned one:
+```sql
+ALTER TABLE order_details
+DROP COLUMN order_date;
+
+ALTER TABLE order_details
+RENAME COLUMN new_order_date TO order_date;
+```
+This small mistake turned into a valuable data cleaning exercise —
+A reminder that not every dataset comes clean, and sometimes the best learning happens when you fix the mess yourself
+
+---
 
