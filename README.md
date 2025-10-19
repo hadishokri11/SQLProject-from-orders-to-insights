@@ -118,4 +118,4 @@ ALTER TABLE order_details
 RENAME COLUMN new_order_time TO order_time;
 ```
 ---
-![Clean data](images/order_details_wrong_datatype.png)
+![Clean data]([images/order_details_wrong_datatype.png](https://github.com/hadishokri11/SQLProject-from-orders-to-insights/blob/main/1st%20Clean%20data.PNG?raw=true))
