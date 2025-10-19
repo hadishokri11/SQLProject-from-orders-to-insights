@@ -122,7 +122,7 @@ RENAME COLUMN new_order_time TO order_time;
 ---
 
 
-## 🍽️ Data Exploration – Understanding the Menu
+## Objective 1: 🍽️ Explore the `menu_items` table - Data Exploration – Understanding the Menu
 
 After cleaning the order_details table, I moved on to exploring what’s on the new menu.
 The menu_items table contains all the dishes offered at Taste of the World Café — including their categories, cuisines, and prices.
@@ -172,4 +172,58 @@ ORDER BY avg_price;
 💡 These queries give a quick but powerful overview of the restaurant’s new menu — highlighting pricing patterns, cuisine variety, and category-level insights.
 
 ---
+
+## Objective 2: Explore the `order_details` table - understand what kind of data has been collected
+
+```sql
+-- 1. View the order_details table.
+SELECT * 
+FROM order_details
+LIMIT 10;
+
+-- 2. What is the date range of the table?
+SELECT MIN(order_date), MAX(order_date)
+FROM order_details;
+
+-- 3. How many orders were made within this date range?
+SELECT COUNT(DISTINCT order_id)
+FROM order_details;
+
+-- 4. How many items were ordered within this date range?
+SELECT COUNT(*)
+FROM order_details;
+
+-- 5. Which orders had the most number of items?
+SELECT order_id, COUNT(*) AS num_items
+FROM order_details
+GROUP BY order_id
+ORDER BY num_items DESC;
+
+-- 6. How many orders had more than 12 items?
+SELECT COUNT(*) AS orders FROM
+
+(SELECT order_id, COUNT(*) AS num_items
+FROM order_details
+GROUP BY order_id
+HAVING num_items > 12
+ORDER BY num_items DESC) AS num_orders;
+```
+
+After all the questions have been aswered, I tinker around the data to find out if I can summarize the data into a quick summary table:
+```sql
+SELECT 
+COUNT(DISTINCT order_id) AS total_orders,
+COUNT(*) AS total_items,
+MIN(order_date) AS start_date,
+MAX(order_date) AS end_date
+FROM order_details;
+```
+
+I also want to find out the trend of customers by date or over time:
+```sql
+SELECT order_date, COUNT(DISTINCT order_id) AS total_orders
+FROM order_details
+GROUP BY order_date
+ORDER BY order_date;
+```
 
