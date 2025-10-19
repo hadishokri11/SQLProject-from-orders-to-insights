@@ -52,7 +52,7 @@ Here’s how I went about it:
 
 ---
 
-### 🔍 Step 1: Explore the data  
+#### 🔍 Step 1: Explore the data  
 
 ```sql
 SELECT *
@@ -60,7 +60,7 @@ FROM order_details;
 ```
 ---
 
-### 🏗️ Step 2: Add a new column
+#### 🏗️ Step 2: Add a new column
 
 I created a new column called new_order_date with the correct data type:
 ```sql
@@ -69,7 +69,7 @@ ADD COLUMN new_order_date DATE;
 ```
 ---
 
-### 🔄 Step 3: Convert and update the data
+#### 🔄 Step 3: Convert and update the data
 
 Then I filled this column by converting the existing order_date text into a proper date format:
 ```sql
@@ -79,14 +79,14 @@ SET new_order_date = STR_TO_DATE(order_date, '%c/%e/%y');
 ---
 
 
-### ✅ Step 4: Verify the conversion 
+#### ✅ Step 4: Verify the conversion 
 
 I did a few random checks comparing the old and new columns to make sure the conversion worked correctly
 
 ---
 
 
-### 🧹 Step 5: Drop and rename columns
+#### 🧹 Step 5: Drop and rename columns
 
 Once everything looked good, I replaced the old column with the cleaned one:
 ```sql
@@ -101,7 +101,7 @@ A reminder that not every dataset comes clean, and sometimes the best learning h
 
 ---
 
-### 🔄 Step 6: Repeat with order_time column
+#### 🔄 Step 6: Repeat with order_time column
 
 I did the same thing with order_time column:
 ```sql
@@ -117,5 +117,59 @@ DROP COLUMN order_time;
 ALTER TABLE order_details
 RENAME COLUMN new_order_time TO order_time;
 ```
----
+
 ![Clean data](https://github.com/hadishokri11/SQLProject-from-orders-to-insights/blob/main/1st%20Clean%20data.PNG?raw=true)
+---
+
+
+## 🍽️ Data Exploration – Understanding the Menu
+
+After cleaning the order_details table, I moved on to exploring what’s on the new menu.
+The menu_items table contains all the dishes offered at Taste of the World Café — including their categories, cuisines, and prices.
+
+```sql
+-- 1. View the menu_items table.
+SELECT * from menu_items;
+
+-- 2. Find the number of items on the menu.
+SELECT COUNT(*) from menu_items;
+
+-- 3. What are the TOP 3 least and most expensive items on the menu?
+SELECT * from menu_items
+ORDER BY price
+LIMIT 3;
+
+SELECT * from menu_items
+ORDER BY price DESC
+LIMIT 3;
+
+-- 4. How many Italian dishes are on the menu?
+SELECT COUNT(*) from menu_items
+WHERE category = "Italian";
+
+-- 5. What are the TOP 3 least and most expensive Italian dishes on the menu?
+SELECT * from menu_items
+WHERE category = "Italian"
+ORDER BY price
+LIMIT 3;
+
+SELECT * from menu_items
+WHERE category = "Italian"
+ORDER BY price DESC
+LIMIT 3;
+
+-- 6. How many dishes are in each category?
+SELECT category, count(item_name) AS num_dishes
+FROM menu_items
+GROUP BY category;
+
+-- 7. What is the average dish price within each category?
+SELECT category, AVG(price) AS avg_price 
+FROM menu_items
+GROUP BY category
+ORDER BY avg_price;
+```
+💡 These queries give a quick but powerful overview of the restaurant’s new menu — highlighting pricing patterns, cuisine variety, and category-level insights.
+
+---
+
