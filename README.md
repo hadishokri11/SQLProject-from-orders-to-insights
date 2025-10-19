@@ -256,6 +256,7 @@ ORDER BY order_date;
 ## Objective 3: Combine the order_details and menu_items Tables
 Goal: Understand what customers are ordering and identify popular items, revenue drivers, and patterns.
 
+```sql
 -- 1. Combine the menu_items and order_details tables into a single table.
 SELECT * 
 FROM menu_items;
@@ -329,6 +330,7 @@ WHERE order_id IN (440, 2075, 1957, 330, 2675)
 GROUP BY order_id, category
 ORDER BY total_price DESC;
 -- insight gather: Across all top-spending customers, Italian dishes consistently dominate — confirming their role as the café’s biggest revenue driver.
+```
 
 ---
 
